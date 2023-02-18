@@ -1,0 +1,52 @@
+{
+  "name": "icanboogie/autoconfig",
+  "type": "composer-plugin",
+  "description": "Automatically gather low-level configuration information for ICanBoogie",
+  "version": "6.0",
+  "homepage": "https://icanboogie.org/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Olivier Laviale",
+      "email": "olivier.laviale@gmail.com",
+      "homepage": "https://olvlvl.com/",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/ICanBoogie/Autoconfig/issues",
+    "source": "https://github.com/ICanBoogie/Autoconfig"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=8.2",
+    "composer-plugin-api": "^2.0",
+    "icanboogie/accessor": "6.0.x-dev",
+    "icanboogie/icanboogie": "^6.0"
+  },
+  "require-dev": {
+    "composer/composer": "^2.8",
+    "phpstan/phpstan": "^1.12",
+    "phpunit/phpunit": "^11.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "ICanBoogie\\Autoconfig\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\ICanBoogie\\Autoconfig\\": "tests/src"
+    }
+  },
+  "extra": {
+    "class": "ICanBoogie\\Autoconfig\\Composer\\Plugin"
+  },
+  "scripts": {
+    "post-autoload-dump": "ICanBoogie\\Autoconfig\\Composer\\Plugin::dump"
+  }
+}
