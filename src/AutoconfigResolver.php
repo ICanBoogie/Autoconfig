@@ -87,7 +87,7 @@ final class AutoconfigResolver
      *
      * @see https://icanboogie.org/docs/4.0/multi-site
      */
-    public static function resolve_app_paths(string $root, string $instance = null): array
+    public static function resolve_app_paths(string $root, ?string $instance = null): array
     {
         $instance ??= self::resolve_instance_name();
 

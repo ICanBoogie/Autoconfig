@@ -30,7 +30,7 @@ use function realpath;
  */
 final class AutoconfigGenerator
 {
-	use AccessorTrait;
+    use AccessorTrait;
 
     private Filesystem $filesystem;
 
@@ -54,7 +54,7 @@ final class AutoconfigGenerator
      */
     private function get_packages(): iterable
     {
-        foreach ($this->packages as [ $package, $pathname ]) {
+        foreach ($this->packages as [$package, $pathname]) {
             if (!$pathname) {
                 $pathname = getcwd();
             }
@@ -69,7 +69,7 @@ final class AutoconfigGenerator
      * @param array<int, array{0: PackageInterface, 1: string|null}> $packages
      */
     public function __construct(
-		public readonly RootPackageInterface $root_package,
+        public readonly RootPackageInterface $root_package,
         private readonly array $packages,
         public readonly string $destination,
     ) {
@@ -220,7 +220,7 @@ EOT;
         $data = Schema::read(__DIR__ . '/schema.json');
         $properties = &$data->properties;
         $set_property = function (string $property, array $data) use (&$properties): void {
-            $properties->$property = (object) $data;
+            $properties->$property = (object)$data;
         };
 
         foreach ($this->extensions as $extension) {
@@ -290,11 +290,11 @@ EOT;
                     case SchemaOptions::CONFIG_CONSTRUCTOR:
                     case SchemaOptions::AUTOCONFIG_FILTERS:
                         $key = self::SCHEMA_MAPPING[$key];
-                        $config[$key] = array_merge($config[$key], (array) $value);
+                        $config[$key] = array_merge($config[$key], (array)$value);
                         break;
 
                     case SchemaOptions::CONFIG_PATH:
-                        foreach ((array) $value as $v) {
+                        foreach ((array)$value as $v) {
                             assert(is_string($v));
 
                             $config[Autoconfig::ARG_CONFIG_PATHS][] = [
@@ -309,7 +309,7 @@ EOT;
                     case SchemaOptions::LOCALE_PATH:
                         $key = self::SCHEMA_MAPPING[$key];
 
-                        foreach ((array) $value as $v) {
+                        foreach ((array)$value as $v) {
                             assert(is_string($v));
 
                             $config[$key][] = $this->find_shortest_path_code("$path/$v");
@@ -391,7 +391,7 @@ EOT;
         return $this->render_array(
             $config[Autoconfig::ARG_APP_PATHS],
             function ($item): string {
-                return (string) $item;
+                return (string)$item;
             }
         );
     }
@@ -404,7 +404,7 @@ EOT;
         return $this->render_array(
             $config[Autoconfig::ARG_LOCALE_PATHS],
             function ($item): string {
-                return (string) $item;
+                return (string)$item;
             }
         );
     }
