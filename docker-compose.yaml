@@ -8,8 +8,8 @@ services:
     environment:
       PHP_IDE_CONFIG: 'serverName=icanboogie-autoconfig'
     volumes:
-    - .:/app:delegated
-    - ~/.composer:/root/.composer:delegated
+      - .:/app:delegated
+      - ~/.composer:/root/.composer:delegated
     working_dir: /app
   app83:
     build:
@@ -19,8 +19,8 @@ services:
     environment:
       PHP_IDE_CONFIG: 'serverName=icanboogie-autoconfig'
     volumes:
-    - .:/app:delegated
-    - ~/.composer:/root/.composer:delegated
+      - .:/app:delegated
+      - ~/.composer:/root/.composer:delegated
     working_dir: /app
   app84:
     build:
@@ -30,6 +30,6 @@ services:
     environment:
       PHP_IDE_CONFIG: 'serverName=icanboogie-autoconfig'
     volumes:
-    - .:/app:delegated
-    - ~/.composer:/root/.composer:delegated
+      - .:/app:delegated
+      - ~/.composer:/root/.composer:delegated
     working_dir: /app
