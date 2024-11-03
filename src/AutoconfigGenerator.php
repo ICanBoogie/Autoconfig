@@ -2,12 +2,10 @@
 
 namespace ICanBoogie\Autoconfig;
 
-use Composer\Package\Package;
 use Composer\Package\PackageInterface;
 use Composer\Package\RootPackage;
 use Composer\Package\RootPackageInterface;
 use Composer\Util\Filesystem;
-use ICanBoogie\Accessor\AccessorTrait;
 use ICanBoogie\Config\Builder;
 use Throwable;
 
@@ -24,14 +22,9 @@ use function realpath;
 
 /**
  * @codeCoverageIgnore
- *
- * @property-read array<string, Package> $packages
- * @property-read RootPackageInterface $root_package
  */
 final class AutoconfigGenerator
 {
-    use AccessorTrait;
-
     private Filesystem $filesystem;
 
     /**
@@ -50,30 +43,43 @@ final class AutoconfigGenerator
     private array $extensions = [];
 
     /**
-     * @return array<string, PackageInterface>
+     * @var array<string, PackageInterface>
+     *     Where _key_ is a pathname.
      */
-    private function get_packages(): iterable
-    {
-        foreach ($this->packages as [$package, $pathname]) {
-            if (!$pathname) {
-                $pathname = getcwd();
-            }
-
-            assert(is_string($pathname));
-
-            yield $pathname => $package;
-        }
-    }
+    public readonly array $packages;
 
     /**
      * @param array<int, array{0: PackageInterface, 1: string|null}> $packages
      */
     public function __construct(
         public readonly RootPackageInterface $root_package,
-        private readonly array $packages,
+        array $packages,
         public readonly string $destination,
     ) {
         $this->filesystem = new Filesystem();
+        $this->packages = $this->index_packages($packages);
+    }
+
+    /**
+     * @param array<int, array{0: PackageInterface, 1: string|null}> $packages
+     *
+     * @return array<string, PackageInterface>
+     */
+    private function index_packages(array $packages): array
+    {
+        $byDir = [];
+
+        foreach ($packages as [$package, $pathname]) {
+            if (!$pathname) {
+                $pathname = getcwd();
+            }
+
+            assert(is_string($pathname));
+
+            $byDir[$pathname] = $package;
+        }
+
+        return $byDir;
     }
 
     /**
@@ -156,7 +162,7 @@ EOT;
         $fragments = [];
         $weights = [];
 
-        foreach ($this->get_packages() as $pathname => $package) {
+        foreach ($this->packages as $pathname => $package) {
             $pathname = realpath($pathname);
 
             assert(is_string($pathname));

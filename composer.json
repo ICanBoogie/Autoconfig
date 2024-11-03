@@ -25,7 +25,6 @@
   "require": {
     "php": ">=8.2",
     "composer-plugin-api": "^2.0",
-    "icanboogie/accessor": "6.0.x-dev",
     "icanboogie/icanboogie": "^6.0"
   },
   "require-dev": {
