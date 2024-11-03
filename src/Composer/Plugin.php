@@ -16,12 +16,12 @@ use const DIRECTORY_SEPARATOR;
 
 final class Plugin implements PluginInterface, EventSubscriberInterface
 {
-    public const PRIORITY = 0;
+    public const int PRIORITY = 0;
 
     /**
      * Autoconfig file path, relative to the vendor folder.
      */
-    public const AUTOCONFIG_FILEPATH = 'icanboogie/autoconfig.php';
+    public const string AUTOCONFIG_FILEPATH = 'icanboogie/autoconfig.php';
 
     public static function getSubscribedEvents(): array
     {

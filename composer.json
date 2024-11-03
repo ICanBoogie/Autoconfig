@@ -2,7 +2,7 @@
   "name": "icanboogie/autoconfig",
   "type": "composer-plugin",
   "description": "Automatically gather low-level configuration information for ICanBoogie",
-  "version": "6.0",
+  "version": "7.0",
   "homepage": "https://icanboogie.org/",
   "license": "MIT",
   "authors": [
@@ -23,9 +23,9 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.4",
     "composer-plugin-api": "^2.0",
-    "icanboogie/icanboogie": "^6.0"
+    "icanboogie/icanboogie": "^7.0"
   },
   "require-dev": {
     "composer/composer": "^2.8",

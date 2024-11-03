@@ -8,19 +8,19 @@ use function array_merge;
 
 final class Autoconfig
 {
-    public const ARG_BASE_PATH = 'base_path';
-    public const ARG_APP_PATH = 'app_path';
-    public const ARG_APP_PATHS = 'app_paths';
-    public const ARG_CONFIG_PATHS = 'config_paths';
-    public const ARG_CONFIG_BUILDERS = 'config_builders';
-    public const ARG_LOCALE_PATHS = 'locale_paths';
-    public const ARG_FILTERS = 'filters';
+    public const string ARG_BASE_PATH = 'base_path';
+    public const string ARG_APP_PATH = 'app_path';
+    public const string ARG_APP_PATHS = 'app_paths';
+    public const string ARG_CONFIG_PATHS = 'config_paths';
+    public const string ARG_CONFIG_BUILDERS = 'config_builders';
+    public const string ARG_LOCALE_PATHS = 'locale_paths';
+    public const string ARG_FILTERS = 'filters';
 
-    public const CONFIG_WEIGHT_FRAMEWORK = -100;
-    public const CONFIG_WEIGHT_MODULE = 0;
-    public const CONFIG_WEIGHT_APP = 100;
+    public const int CONFIG_WEIGHT_FRAMEWORK = -100;
+    public const int CONFIG_WEIGHT_MODULE = 0;
+    public const int CONFIG_WEIGHT_APP = 100;
 
-    public const DEFAULT_APP_DIRECTORY = 'app';
+    public const string DEFAULT_APP_DIRECTORY = 'app';
 
     public static function get(): self
     {

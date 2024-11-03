@@ -80,7 +80,6 @@ final class AutoconfigResolverTest extends TestCase
                 'ICanBoogie\Prototype\Config' => 'ICanBoogie\Binding\Prototype\ConfigBuilder',
                 'ICanBoogie\Routing\RouteProvider' => 'ICanBoogie\Binding\Routing\ConfigBuilder',
                 'ICanBoogie\Binding\SymfonyDependencyInjection\Config' => 'ICanBoogie\Binding\SymfonyDependencyInjection\ConfigBuilder',
-                'ICanBoogie\Debug\Config' => 'ICanBoogie\Debug\ConfigBuilder',
 
             ],
             locale_paths: [

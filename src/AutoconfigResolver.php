@@ -4,7 +4,7 @@ namespace ICanBoogie\Autoconfig;
 
 final class AutoconfigResolver
 {
-    public const ENV_ICANBOOGIE_INSTANCE = 'ICANBOOGIE_INSTANCE';
+    public const string ENV_ICANBOOGIE_INSTANCE = 'ICANBOOGIE_INSTANCE';
 
     public static function resolve(): Autoconfig
     {
@@ -12,7 +12,7 @@ final class AutoconfigResolver
             $tries = [
                 dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'autoconfig.php',
                 dirname(
-                    __DIR__
+                    __DIR__,
                 ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'icanboogie' . DIRECTORY_SEPARATOR . 'autoconfig.php',
             ];
 
@@ -29,14 +29,13 @@ final class AutoconfigResolver
 
                 trigger_error(
                     "The autoconfig file is missing, tried: $tries. Check the `script` section of your composer.json file. https://icanboogie.org/docs/4.0/autoconfig#generating-the-autoconfig-file",
-                    E_USER_ERROR
                 );
             }
         }
 
         /** @var Autoconfig $autoconfig */
 
-        $autoconfig = require \ICANBOOGIE_AUTOCONFIG;
+        $autoconfig = require \ICANBOOGIE_AUTOCONFIG; // @phpstan-ignore-line
 
         $additional_app_paths = self::resolve_app_paths($autoconfig->app_path);
         $config_paths = $autoconfig->config_paths;
