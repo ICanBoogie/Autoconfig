@@ -44,8 +44,5 @@
   },
   "extra": {
     "class": "ICanBoogie\\Autoconfig\\Composer\\Plugin"
-  },
-  "scripts": {
-    "post-autoload-dump": "ICanBoogie\\Autoconfig\\Composer\\Plugin::dump"
   }
 }
