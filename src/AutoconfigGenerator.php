@@ -330,7 +330,7 @@ EOT;
             $extension->synthesize($config);
         }
 
-        return $config;
+        return $config; // @phpstan-ignore return.type
     }
 
     /**

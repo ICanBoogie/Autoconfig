@@ -56,7 +56,7 @@ final readonly class Schema
             reset($data);
             $key = key($data);
 
-            if (is_scalar($key) && !is_numeric($key)) {
+            if (is_scalar($key) && !is_numeric($key)) { // @phpstan-ignore-line
                 $data = (object) $data;
             }
         }

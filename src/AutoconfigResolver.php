@@ -76,6 +76,8 @@ final class AutoconfigResolver
             $instance = $_SERVER['SERVER_NAME'];
         }
 
+        assert(is_string($instance));
+
         return $instance;
     }
 
