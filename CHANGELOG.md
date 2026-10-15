@@ -8,7 +8,7 @@
 
 ### New features
 
-None
+- Added the `autoboot` key to the `extra.icanboogie` section of `composer.json`. Packages use it to register `Vendor\Class::method` callables that `Application::boot()` invokes with the application, before `BootEvent` is emitted. They are exposed as `Autoconfig::$boot_callables`, in dependency order. See `docs/adr/0001-autoboot.md`.
 
 ### Deprecated Features
 

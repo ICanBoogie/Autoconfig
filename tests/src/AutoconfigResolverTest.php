@@ -76,9 +76,9 @@ final class AutoconfigResolverTest extends TestCase
             config_builders: [
 
                 'ICanBoogie\AppConfig' => 'ICanBoogie\AppConfigBuilder',
-                'ICanBoogie\Event\Config' => 'ICanBoogie\Binding\Event\ConfigBuilder',
-                'ICanBoogie\Prototype\Config' => 'ICanBoogie\Binding\Prototype\ConfigBuilder',
-                'ICanBoogie\Routing\Config' => 'ICanBoogie\Binding\Routing\ConfigBuilder',
+                'ICanBoogie\Event\Config' => 'ICanBoogie\Event\ConfigBuilder',
+                'ICanBoogie\Prototype\Config' => 'ICanBoogie\Prototype\ConfigBuilder',
+                'ICanBoogie\Routing\Config' => 'ICanBoogie\Routing\ConfigBuilder',
                 'ICanBoogie\Binding\SymfonyDependencyInjection\Config' => 'ICanBoogie\Binding\SymfonyDependencyInjection\ConfigBuilder',
 
             ],
@@ -86,6 +86,9 @@ final class AutoconfigResolverTest extends TestCase
 
             ],
             filters: [
+
+            ],
+            boot_callables: [
 
             ],
         );

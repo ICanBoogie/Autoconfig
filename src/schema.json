@@ -53,6 +53,14 @@
 
 		},
 
+		"autoboot": {
+
+			"type": [ "string", "array" ],
+			"items": { "type": "string" },
+			"description": "A callable (`Class::method`) invoked with the Application when it boots, before BootEvent is emitted."
+
+		},
+
 		"app-path": {
 
 			"type": "string",

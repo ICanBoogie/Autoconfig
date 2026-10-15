@@ -15,6 +15,7 @@ final class Autoconfig
     public const string ARG_CONFIG_BUILDERS = 'config_builders';
     public const string ARG_LOCALE_PATHS = 'locale_paths';
     public const string ARG_FILTERS = 'filters';
+    public const string ARG_BOOT_CALLABLES = 'boot_callables';
 
     public const int CONFIG_WEIGHT_FRAMEWORK = -100;
     public const int CONFIG_WEIGHT_MODULE = 0;
@@ -40,6 +41,8 @@ final class Autoconfig
      *     Where _value_ is a locale directory.
      * @param array<callable-string> $filters
      *     Where _value_ is a callable to amend the Autoconfig.
+     * @param array<callable-string> $boot_callables
+     *     Where _value_ is a callable invoked with the Application when it boots.
      */
     public function __construct(
         public readonly string $base_path,
@@ -49,6 +52,7 @@ final class Autoconfig
         public readonly array $config_builders,
         public readonly array $locale_paths,
         public readonly array $filters,
+        public readonly array $boot_callables = [],
     ) {
     }
 
@@ -59,7 +63,9 @@ final class Autoconfig
      *     app_paths?: array<string>,
      *     config_paths?: array<string, int>,
      *     config_builders?: array<class-string, class-string<Builder<object>>>,
-     *     locale_paths?: array<string>
+     *     locale_paths?: array<string>,
+     *     filters?: array<callable-string>,
+     *     boot_callables?: array<callable-string>
      * } $changes
      */
     public function with(array $changes): self
@@ -72,6 +78,7 @@ final class Autoconfig
             'config_builders' => $this->config_builders,
             'locale_paths' => $this->locale_paths,
             'filters' => $this->filters,
+            'boot_callables' => $this->boot_callables,
         ], $changes));
     }
 }

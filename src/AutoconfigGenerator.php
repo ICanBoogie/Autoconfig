@@ -7,6 +7,7 @@ use Composer\Package\RootPackage;
 use Composer\Package\RootPackageInterface;
 use Composer\Util\Filesystem;
 use ICanBoogie\Config\Builder;
+use InvalidArgumentException;
 use Throwable;
 
 use function array_keys;
@@ -18,6 +19,7 @@ use function getcwd;
 use function implode;
 use function is_string;
 use function ksort;
+use function preg_match;
 use function realpath;
 
 /**
@@ -264,6 +266,8 @@ EOT;
         return Autoconfig::CONFIG_WEIGHT_FRAMEWORK;
     }
 
+    private const BOOT_CALLABLE_PATTERN = '/^[A-Za-z_\\\\][\\w\\\\]*::[A-Za-z_]\\w*$/';
+
     private const SCHEMA_MAPPING = [
 
         SchemaOptions::APP_PATHS => Autoconfig::ARG_APP_PATHS,
@@ -271,6 +275,7 @@ EOT;
         SchemaOptions::CONFIG_CONSTRUCTOR => Autoconfig::ARG_CONFIG_BUILDERS,
         SchemaOptions::LOCALE_PATH => Autoconfig::ARG_LOCALE_PATHS,
         SchemaOptions::AUTOCONFIG_FILTERS => Autoconfig::ARG_FILTERS,
+        SchemaOptions::AUTOBOOT => Autoconfig::ARG_BOOT_CALLABLES,
 
     ];
 
@@ -282,7 +287,8 @@ EOT;
      *     config_paths: list<array{ string, int }>,
      *     config_builders: array<class-string, class-string<Builder<object>>>,
      *     locale_paths: array<string>,
-     *     filters: array<callable-string>
+     *     filters: array<callable-string>,
+     *     boot_callables: array<callable-string>
      * }
      */
     private function synthesize(): array
@@ -294,6 +300,7 @@ EOT;
             Autoconfig::ARG_CONFIG_PATHS => [],
             Autoconfig::ARG_LOCALE_PATHS => [],
             Autoconfig::ARG_FILTERS => [],
+            Autoconfig::ARG_BOOT_CALLABLES => [],
 
         ];
 
@@ -305,6 +312,20 @@ EOT;
                     case SchemaOptions::AUTOCONFIG_FILTERS:
                         $key = self::SCHEMA_MAPPING[$key];
                         $config[$key] = array_merge($config[$key], (array)$value);
+                        break;
+
+                    case SchemaOptions::AUTOBOOT:
+                        foreach ((array)$value as $v) {
+                            assert(is_string($v));
+
+                            if (!preg_match(self::BOOT_CALLABLE_PATTERN, $v)) {
+                                throw new InvalidArgumentException(
+                                    "Invalid autoboot callable in $path: '$v'. Expected 'Vendor\\Class::method'."
+                                );
+                            }
+
+                            $config[Autoconfig::ARG_BOOT_CALLABLES][] = $v;
+                        }
                         break;
 
                     case SchemaOptions::CONFIG_PATH:
@@ -349,7 +370,8 @@ EOT;
      *     config_paths: list<array{ string, int }>,
      *     config_builders: array<class-string, class-string<Builder<object>>>,
      *     locale_paths: array<string>,
-     *     filters: array<callable-string>
+     *     filters: array<callable-string>,
+     *     boot_callables: array<callable-string>
      * } $config
      */
     private function render(array $config): string
@@ -361,6 +383,7 @@ EOT;
         $rendered_config_builders = $this->render_config_builders_array($config);
         $rendered_locale_paths = $this->render_locale_paths_array($config);
         $rendered_filters = $this->render_filters($config);
+        $rendered_boot_callables = $this->render_boot_callables($config);
 
         return <<<PHP
         <?php
@@ -393,6 +416,7 @@ EOT;
             config_builders: $rendered_config_builders,
             locale_paths: $rendered_locale_paths,
             filters: $rendered_filters,
+            boot_callables: $rendered_boot_callables,
         );
         PHP;
     }
@@ -463,6 +487,19 @@ EOT;
 
         return $this->render_array(
             $data,
+            function ($callable): string {
+                return "'$callable'";
+            }
+        );
+    }
+
+    /**
+     * @param array{ boot_callables: array<callable-string> } $config
+     */
+    private function render_boot_callables(array $config): string
+    {
+        return $this->render_array(
+            $config[Autoconfig::ARG_BOOT_CALLABLES],
             function ($callable): string {
                 return "'$callable'";
             }

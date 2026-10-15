@@ -17,4 +17,5 @@ interface SchemaOptions
     public const string LOCALE_PATH = 'locale-path';
     public const string APP_PATH = 'app-path';
     public const string APP_PATHS = 'app-paths';
+    public const string AUTOBOOT = 'autoboot';
 }
