@@ -90,6 +90,8 @@ final class AutoconfigResolverTest extends TestCase
             ],
             boot_callables: [
 
+                'ICanBoogie\Binding\Prototype\Boot::boot',
+
             ],
         );
 
