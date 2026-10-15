@@ -15,9 +15,9 @@ Configures [ICanBoogie][] automatically.
 
 The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/Autoconfig/actions).
 
-[![Tests](https://github.com/ICanBoogie/Autoconfig/actions/workflows/test.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/Autoconfig/actions/workflows/test.yml)
-[![Static Analysis](https://github.com/ICanBoogie/Autoconfig/actions/workflows/static-analysis.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/Autoconfig/actions/workflows/static-analysis.yml)
-[![Code Style](https://github.com/ICanBoogie/Autoconfig/actions/workflows/code-style.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/Autoconfig/actions/workflows/code-style.yml)
+[![Tests](https://github.com/ICanBoogie/Autoconfig/actions/workflows/test.yml/badge.svg?branch=7.0)](https://github.com/ICanBoogie/Autoconfig/actions/workflows/test.yml)
+[![Static Analysis](https://github.com/ICanBoogie/Autoconfig/actions/workflows/static-analysis.yml/badge.svg?branch=7.0)](https://github.com/ICanBoogie/Autoconfig/actions/workflows/static-analysis.yml)
+[![Code Style](https://github.com/ICanBoogie/Autoconfig/actions/workflows/code-style.yml/badge.svg?branch=7.0)](https://github.com/ICanBoogie/Autoconfig/actions/workflows/code-style.yml)
 
 
 

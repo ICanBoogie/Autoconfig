@@ -13,6 +13,7 @@ use function is_array;
 use function is_numeric;
 use function is_object;
 use function is_scalar;
+use function is_string;
 use function json_decode;
 use function key;
 use function reset;
@@ -93,7 +94,10 @@ final readonly class Schema
             $errors = '';
 
             foreach ($validator->getErrors() as $error) {
-                $errors .= "\n- " . ($error['property'] ? $error['property'] . ': ' : '') . $error['message'];
+                $property = is_array($error) && is_string($error['property'] ?? null) ? $error['property'] : '';
+                $message = is_array($error) && is_string($error['message'] ?? null) ? $error['message'] : '';
+
+                $errors .= "\n- " . ($property ? $property . ': ' : '') . $message;
             }
 
             throw new InvalidArgumentException("`$pathname` does not match the expected JSON schema:\n$errors");

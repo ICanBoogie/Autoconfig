@@ -2,6 +2,8 @@
 
 namespace ICanBoogie\Autoconfig;
 
+use UnexpectedValueException;
+
 final class AutoconfigResolver
 {
     public const string ENV_ICANBOOGIE_INSTANCE = 'ICANBOOGIE_INSTANCE';
@@ -23,7 +25,6 @@ final class AutoconfigResolver
                 }
             }
 
-            /** @phpstan-ignore-next-line */
             if (!defined('ICANBOOGIE_AUTOCONFIG')) {
                 $tries = implode(', ', $tries);
 
@@ -33,9 +34,15 @@ final class AutoconfigResolver
             }
         }
 
-        /** @var Autoconfig $autoconfig */
+        $file = constant('ICANBOOGIE_AUTOCONFIG');
 
-        $autoconfig = require \ICANBOOGIE_AUTOCONFIG; // @phpstan-ignore-line
+        assert(is_string($file));
+
+        $autoconfig = require $file;
+
+        if (!$autoconfig instanceof Autoconfig) {
+            throw new UnexpectedValueException("$file must return an instance of " . Autoconfig::class);
+        }
 
         $additional_app_paths = self::resolve_app_paths($autoconfig->app_path);
         $config_paths = $autoconfig->config_paths;
@@ -54,7 +61,13 @@ final class AutoconfigResolver
         ]);
 
         foreach ($autoconfig->filters as $filter) {
-            $autoconfig = $filter($autoconfig);
+            $filtered = $filter($autoconfig);
+
+            if (!$filtered instanceof Autoconfig) {
+                throw new UnexpectedValueException("Filter $filter must return an instance of " . Autoconfig::class);
+            }
+
+            $autoconfig = $filtered;
         }
 
         return $autoconfig;

@@ -22,11 +22,11 @@ final class Autoconfig
 
     public const string DEFAULT_APP_DIRECTORY = 'app';
 
+    private static ?self $instance = null;
+
     public static function get(): self
     {
-        static $autoconfig;
-
-        return $autoconfig ??= AutoconfigResolver::resolve();
+        return self::$instance ??= AutoconfigResolver::resolve();
     }
 
     /**

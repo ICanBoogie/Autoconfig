@@ -110,7 +110,11 @@ EOT;
     }
 
     /**
-     * @param array<string, mixed> $items
+     * @template TKey of array-key
+     * @template TValue
+     *
+     * @param array<TKey, TValue> $items
+     * @param callable(TValue, TKey): string $renderer
      */
     public function render_array_entry(string $key, array $items, callable $renderer): string
     {
@@ -131,7 +135,11 @@ EOT;
     }
 
     /**
-     * @param array<string, mixed> $items
+     * @template TKey of array-key
+     * @template TValue
+     *
+     * @param array<TKey, TValue> $items
+     * @param callable(TValue, TKey): string $renderer
      */
     public function render_array(array $items, callable $renderer): string
     {
@@ -271,7 +279,7 @@ EOT;
      *
      * @return array{
      *     app_paths: array<string>,
-     *     config_paths: array<string, int>,
+     *     config_paths: list<array{ string, int }>,
      *     config_builders: array<class-string, class-string<Builder<object>>>,
      *     locale_paths: array<string>,
      *     filters: array<callable-string>
@@ -338,7 +346,7 @@ EOT;
      *
      * @param array{
      *     app_paths: array<string>,
-     *     config_paths: array<string, int>,
+     *     config_paths: list<array{ string, int }>,
      *     config_builders: array<class-string, class-string<Builder<object>>>,
      *     locale_paths: array<string>,
      *     filters: array<callable-string>
@@ -432,7 +440,7 @@ EOT;
     }
 
     /**
-     * @param array{ config_paths: array<string, int> } $config
+     * @param array{ config_paths: list<array{ string, int }> } $config
      */
     private function render_config_path(array $config): string
     {

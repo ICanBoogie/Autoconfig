@@ -2,9 +2,8 @@
   "name": "icanboogie/autoconfig",
   "type": "composer-plugin",
   "description": "Automatically gather low-level configuration information for ICanBoogie",
-  "version": "7.0",
   "homepage": "https://icanboogie.org/",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "authors": [
     {
       "name": "Olivier Laviale",
@@ -18,7 +17,13 @@
     "source": "https://github.com/ICanBoogie/Autoconfig"
   },
   "config": {
-    "sort-packages": true
+    "platform": {
+      "php": "8.4.1"
+    },
+    "sort-packages": true,
+    "allow-plugins": {
+      "icanboogie/autoconfig": true
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -29,8 +34,8 @@
   },
   "require-dev": {
     "composer/composer": "^2.8",
-    "phpstan/phpstan": "^2.0",
-    "phpunit/phpunit": "^11.4"
+    "phpstan/phpstan": "^2.3",
+    "phpunit/phpunit": "^13.4"
   },
   "autoload": {
     "psr-4": {
@@ -41,6 +46,9 @@
     "psr-4": {
       "Test\\ICanBoogie\\Autoconfig\\": "tests/src"
     }
+  },
+  "scripts": {
+    "post-autoload-dump": "ICanBoogie\\Autoconfig\\Composer\\Plugin::dump"
   },
   "extra": {
     "class": "ICanBoogie\\Autoconfig\\Composer\\Plugin"

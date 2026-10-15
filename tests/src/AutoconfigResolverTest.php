@@ -78,7 +78,7 @@ final class AutoconfigResolverTest extends TestCase
                 'ICanBoogie\AppConfig' => 'ICanBoogie\AppConfigBuilder',
                 'ICanBoogie\Event\Config' => 'ICanBoogie\Binding\Event\ConfigBuilder',
                 'ICanBoogie\Prototype\Config' => 'ICanBoogie\Binding\Prototype\ConfigBuilder',
-                'ICanBoogie\Routing\RouteProvider' => 'ICanBoogie\Binding\Routing\ConfigBuilder',
+                'ICanBoogie\Routing\Config' => 'ICanBoogie\Binding\Routing\ConfigBuilder',
                 'ICanBoogie\Binding\SymfonyDependencyInjection\Config' => 'ICanBoogie\Binding\SymfonyDependencyInjection\ConfigBuilder',
 
             ],
